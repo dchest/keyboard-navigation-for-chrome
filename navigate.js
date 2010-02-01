@@ -173,6 +173,19 @@ var HitAHintMode = function(){
    }
 };
 
+// dchest // check if element is visible
+function isScrolledIntoView(elem)
+{
+    var docViewTop = $(window).scrollTop();
+    var docViewBottom = docViewTop + $(window).height();
+
+    var elemTop = $(elem).offset().top;
+    var elemBottom = elemTop + $(elem).height();
+
+    return ((elemBottom >= docViewTop) && (elemTop <= docViewBottom)
+      && (elemBottom <= docViewBottom) &&  (elemTop >= docViewTop) );
+}
+
 var LinkSearchMode = function(){
    var self = this;
 
@@ -203,7 +216,8 @@ var LinkSearchMode = function(){
       regexp = new RegExp(migemo.query(this.value), "i");
       for (var i=0;i<self.allNodes.length;i++) {
          var node = self.allNodes[i];
-         if (node.innerText.search(regexp) != -1) {
+         if (node.innerText.search(regexp) != -1
+	    && isScrolledIntoView(node)) {
                 self.candidateNodes.push(node);
              }
       }
@@ -211,7 +225,7 @@ var LinkSearchMode = function(){
          self.input.css("backgroundColor", "white");
          self.selectedNodeIdx = 0;
          addClass(self.candidateNodes[0], "chrome_search_selected");
-         makeCenter(self.candidateNodes[0]);
+         //makeCenter(self.candidateNodes[0]);
          for (var i=1;i<self.candidateNodes.length;i++){
             addClass(self.candidateNodes[i], "chrome_search_candidate");
          }
