@@ -226,7 +226,7 @@ var LinkSearchMode = function(){
          self.input.css("backgroundColor", "white");
          self.selectedNodeIdx = 0;
          addClass(self.candidateNodes[0], "chrome_search_selected");
-         //makeCenter(self.candidateNodes[0]);
+	  //makeCenter(self.candidateNodes[0]);
          for (var i=1;i<self.candidateNodes.length;i++){
             addClass(self.candidateNodes[i], "chrome_search_candidate");
          }
@@ -246,7 +246,7 @@ var LinkSearchMode = function(){
          self.finish();
          e.preventDefault();
          break;
-      case KEY.TAB:
+       case KEY.TAB:
          //if (e.ctrlKey) {
             e.preventDefault();
             if (self.selectedNodeIdx == undefined) {
