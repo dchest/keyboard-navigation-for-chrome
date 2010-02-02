@@ -33,13 +33,15 @@
     bottom: 0px;
     position: fixed;
     z-index: 2147483647;
-    border-radius: 6px;
+    border-top-right-radius: 6px;
     -webkit-transition: opacity 0.1s linear;
 }
 #chrome_linksearchinput {
-    outline:0px none black;
+    outline: none; /*0px none black;*/
     font-size: 20pt;
-    border-radius: 6px;
+    border: 1px solid #ddd;
+    border-top-right-radius: 6px;
+    font-family: Helvetica, Arial, sans-serif;
 }
 
 .chrome_search_candidate {
