@@ -292,6 +292,9 @@ var LinkSearchMode = function(){
       this.panel.css("opacity", "0");
       var tmp = this.panel;
       setTimeout(function(){tmp.css("display", "none")},100);
+      if (self.selectedNodeIdx != undefined) {
+	  self.candidateNodes[self.selectedNodeIdx].focus();
+      }
       this.hideLinks();
    };
 };
