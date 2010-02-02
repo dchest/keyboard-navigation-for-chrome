@@ -4,6 +4,7 @@ const scrollValue = 30;
 const KEY = {
    NUM1:49,NUM2:50,NUM3:51,NUM4:52,NUM5:53,NUM6:54,NUM7:55,NUM8:56,NUM9:57,
    ENTER: 13,
+   TAB: 9,
    LEFT: 37, UP: 38, RIGHT: 39, DOWN: 40,
    CONTROL: 17,
    G: 71,
@@ -245,8 +246,8 @@ var LinkSearchMode = function(){
          self.finish();
          e.preventDefault();
          break;
-      case KEY.G:
-         if (e.ctrlKey) {
+      case KEY.TAB:
+         //if (e.ctrlKey) {
             e.preventDefault();
             if (self.selectedNodeIdx == undefined) {
                return;
@@ -267,7 +268,7 @@ var LinkSearchMode = function(){
             if ( !isInWindow(new_target.getBoundingClientRect()) ) {
                makeCenter(new_target);
             }
-         }
+         //}
          break;
       }
    });
