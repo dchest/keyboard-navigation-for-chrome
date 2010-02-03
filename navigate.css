@@ -58,3 +58,9 @@
     color: white !important;
     z-index: 2147483647;
 }
+.chrome_search_clicked {
+    border: 2px solid rgba(205,102,0,1.0) !important;
+    border-radius: 5px;
+    background: -webkit-gradient(linear, left top, left bottom, from(rgba(205,102,0,0.8)), to(rgba(255,165,0,0.8))) !important;
+    color: white !important;
+}

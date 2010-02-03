@@ -247,6 +247,8 @@ var LinkSearchMode = function(){
          if (self.selectedNodeIdx == undefined) {
             return;
          }
+	 addClass(self.candidateNodes[self.selectedNodeIdx], "chrome_search_clicked");
+	 setTimeout(function(){$(".chrome_search_clicked").removeClass("chrome_search_clicked")},500);
          emulateMouseClick(self.candidateNodes[self.selectedNodeIdx],
                            e.ctrlKey, e.altKey, e.shiftKey, e.metaKey);
          self.finish();
