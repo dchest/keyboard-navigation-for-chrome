@@ -203,10 +203,13 @@ var LinkSearchMode = function(){
    this.input.keyup(function(e){
       e.preventDefault();
       if (e.keyCode == KEY.ESC) {
-	 if (e.ctrlKey && self.selectedNodeIdx != undefined) {
-            self.candidateNodes[self.selectedNodeIdx].focus();
+	 if (self.selectedNodeIdx != undefined) {
+	     var el = self.candidateNodes[self.selectedNodeIdx];
 	 }
          self.finish();
+	 if (e.ctrlKey && el != undefined) {
+	    el.focus();
+	 }
          return;
       }
       
