@@ -203,6 +203,9 @@ var LinkSearchMode = function(){
    this.input.keyup(function(e){
       e.preventDefault();
       if (e.keyCode == KEY.ESC) {
+	 if (e.ctrlKey && self.selectedNodeIdx != undefined) {
+            self.candidateNodes[self.selectedNodeIdx].focus();
+	 }
          self.finish();
          return;
       }
@@ -293,9 +296,6 @@ var LinkSearchMode = function(){
       this.panel.css("opacity", "0");
       var tmp = this.panel;
       setTimeout(function(){tmp.css("display", "none")},100);
-      if (self.selectedNodeIdx != undefined) {
-	  self.candidateNodes[self.selectedNodeIdx].focus();
-      }
       this.hideLinks();
    };
 };
