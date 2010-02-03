@@ -291,6 +291,7 @@ var LinkSearchMode = function(){
    };
    this.finish = function(){
       mode = undefined;
+      self.previousString = "";
       this.input[0].value = "";
       this.input[0].blur();
       this.panel.css("opacity", "0");
