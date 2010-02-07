@@ -33,20 +33,34 @@
     bottom: 0px;
     position: fixed;
     z-index: 2147483647;
-    border-radius: 6px;
+    border-top-right-radius: 6px;
     -webkit-transition: opacity 0.1s linear;
 }
 #chrome_linksearchinput {
-    outline:0px none black;
+    outline: none; /*0px none black;*/
     font-size: 20pt;
-    border-radius: 6px;
+    border: 1px solid #ddd;
+    border-top-right-radius: 6px;
+    font-family: Helvetica, Arial, sans-serif;
 }
 
 .chrome_search_candidate {
-    background-color: yellow !important;
+    background-color: rgba(255,255,102,0.6) !important;
     z-index: 2147483647;
 }
 .chrome_search_selected {
+    -webkit-transition: border 0.1s ease-in;
+    /*-webkit-transform: scale(2);*/
+    border: 2px solid rgba(205,102,0,0.6) !important;
     background-color: orange !important;
+    background: -webkit-gradient(linear, left top, left bottom, from(rgba(255,165,0,0.8)), to(rgba(205,102,0,0.8))) !important;
+    -webkit-border-radius: 5px;
+    color: white !important;
     z-index: 2147483647;
+}
+.chrome_search_clicked {
+    border: 2px solid rgba(205,102,0,1.0) !important;
+    border-radius: 5px;
+    background: -webkit-gradient(linear, left top, left bottom, from(rgba(205,102,0,0.8)), to(rgba(255,165,0,0.8))) !important;
+    color: white !important;
 }

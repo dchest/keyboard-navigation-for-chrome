@@ -4,6 +4,7 @@ const scrollValue = 30;
 const KEY = {
    NUM1:49,NUM2:50,NUM3:51,NUM4:52,NUM5:53,NUM6:54,NUM7:55,NUM8:56,NUM9:57,
    ENTER: 13,
+   TAB: 9,
    LEFT: 37, UP: 38, RIGHT: 39, DOWN: 40,
    CONTROL: 17,
    G: 71,
@@ -179,6 +180,19 @@ var HitAHintMode = function(){
    }
 };
 
+// dchest // check if element is visible
+function isScrolledIntoView(elem)
+{
+    var docViewTop = $(window).scrollTop();
+    var docViewBottom = docViewTop + $(window).height();
+
+    var elemTop = $(elem).offset().top;
+    var elemBottom = elemTop + $(elem).height();
+
+    return ((elemBottom >= docViewTop) && (elemTop <= docViewBottom)
+      && (elemBottom <= docViewBottom) &&  (elemTop >= docViewTop) );
+}
+
 var LinkSearchMode = function(){
    var self = this;
 
@@ -195,7 +209,13 @@ var LinkSearchMode = function(){
    this.input.keyup(function(e){
       e.preventDefault();
       if (e.keyCode == KEY.ESC) {
+	 if (self.selectedNodeIdx != undefined) {
+	     var el = self.candidateNodes[self.selectedNodeIdx];
+	 }
          self.finish();
+	 if (e.ctrlKey && el != undefined) {
+	    el.focus();
+	 }
          return;
       }
       
@@ -209,7 +229,8 @@ var LinkSearchMode = function(){
       regexp = new RegExp(migemo.query(this.value), "i");
       for (var i=0;i<self.allNodes.length;i++) {
          var node = self.allNodes[i];
-         if (node.innerText.search(regexp) != -1) {
+         if (node.innerText.search(regexp) != -1
+	    && isScrolledIntoView(node)) {
                 self.candidateNodes.push(node);
              }
       }
@@ -217,7 +238,7 @@ var LinkSearchMode = function(){
          self.input.css("backgroundColor", "white");
          self.selectedNodeIdx = 0;
          addClass(self.candidateNodes[0], "chrome_search_selected");
-         makeCenter(self.candidateNodes[0]);
+	  //makeCenter(self.candidateNodes[0]);
          for (var i=1;i<self.candidateNodes.length;i++){
             addClass(self.candidateNodes[i], "chrome_search_candidate");
          }
@@ -232,13 +253,15 @@ var LinkSearchMode = function(){
          if (self.selectedNodeIdx == undefined) {
             return;
          }
+	 addClass(self.candidateNodes[self.selectedNodeIdx], "chrome_search_clicked");
+	 setTimeout(function(){$(".chrome_search_clicked").removeClass("chrome_search_clicked")},500);
          emulateMouseClick(self.candidateNodes[self.selectedNodeIdx],
                            e.ctrlKey, e.altKey, e.shiftKey, e.metaKey);
          self.finish();
          e.preventDefault();
          break;
-      case KEY.G:
-         if (e.ctrlKey) {
+       case KEY.TAB:
+         //if (e.ctrlKey) {
             e.preventDefault();
             if (self.selectedNodeIdx == undefined) {
                return;
@@ -259,7 +282,7 @@ var LinkSearchMode = function(){
             if ( !isInWindow(new_target.getBoundingClientRect()) ) {
                makeCenter(new_target);
             }
-         }
+         //}
          break;
       }
    });
@@ -279,6 +302,7 @@ var LinkSearchMode = function(){
    };
    this.finish = function(){
       mode = undefined;
+      self.previousString = "";
       this.input[0].value = "";
       this.input[0].blur();
       this.panel.css("opacity", "0");
